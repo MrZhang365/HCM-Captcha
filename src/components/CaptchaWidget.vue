@@ -106,7 +106,7 @@ defineExpose({ openChallenge })
     </div>
 
     <div class="captcha-widget-brand">
-      <span>车迷验证</span>
+      <span>火车迷验证</span>
       <span class="captcha-widget-brand-icon">🛡️</span>
     </div>
 

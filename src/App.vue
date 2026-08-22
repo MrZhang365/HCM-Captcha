@@ -1,20 +1,16 @@
 <script setup lang="ts">
 import { ref, useTemplateRef } from 'vue'
 import CaptchaWidget from './components/CaptchaWidget.vue'
-import { setAnswer, loadImage } from './api/captchaApi'
 import type { CaptchaSubmitEvent } from './types/captcha'
 import { QUESTIONS, MIN_IMG, MAX_IMG, getQuestion } from './api/questions'
 
 const captchaRef = useTemplateRef<InstanceType<typeof CaptchaWidget>>('captchaRef')
-const lastResult = ref<string | null>(null)
 const markSelect = ref<string>('')
 const imgId = ref<number>(0)
 const debugMode = ref<boolean>(!!import.meta.env.VITE_DEBUG_MODE)
 
 async function handleStart() {
-  lastResult.value = null
-
-  const selected = getQuestion()
+  const selected = await getQuestion()
   const imageUrl = `${location.protocol}//${location.host}/images/${selected.imgId}.jpg`
   captchaRef.value?.openChallenge({ question: selected.text, imageUrl, answer: selected.answer })
 }
@@ -35,20 +31,20 @@ async function handleRefresh() {
 }
 
 function handleSubmit(payload: CaptchaSubmitEvent) {
-  const status = payload.result ? '绿灯通过（LKJ语气）' : '你不是火车迷，出去出去（站务语气）'
-  lastResult.value = status
+  // 暂时留空
 }
 </script>
 
 <template>
   <div class="test-page">
-    <h1 class="test-title">你是火车迷吗？</h1>
+    <h1 class="test-title">这是什么？</h1>
     <p class="test-desc">
-      这是一个为火车迷打造的人机验证组件，你要来试试吗？
+      这是一个专为火车迷打造的人机验证组件（CAPTCHA），由 <a href="https://blog.zhangsoft.top/" target="_blank">MrZhang365</a> 在 TRAE AI 的协助下开发。
+      项目纯属娱乐，理论上说不具备实用价值
     </p>
 
     <div class="test-section">
-      <h2 class="test-section-title">验证组件</h2>
+      <h2 class="test-section-title">你是火车迷吗？</h2>
       <div class="test-widget-area">
         <CaptchaWidget
           ref="captchaRef"
@@ -60,24 +56,15 @@ function handleSubmit(payload: CaptchaSubmitEvent) {
       </div>
     </div>
 
-    <div class="test-section" v-if="debugMode">
-      <h2 class="test-section-title">标定模式</h2>
-      <select v-model="markSelect">
-        <template v-for="question in QUESTIONS">
-          <option :value="question.tag">{{ question.text }}</option>
-        </template>
-      </select>
-      <br />
-      <input v-model="imgId" type="range" :min="MIN_IMG" :max="MAX_IMG" />
-      <span>{{ imgId }}</span>
-    </div>
-
     <div class="test-section">
-      <h2 class="test-section-title">验证结果</h2>
-      <div v-if="lastResult" class="test-result" :class="{ 'test-result--success': lastResult.includes('通过'), 'test-result--failure': lastResult.includes('失败') }">
-        {{ lastResult }}
-      </div>
-      <div v-else class="test-result test-result--empty">尚未进行验证</div>
+      <h2 class="test-section-title">关于作者 MrZhang365...</h2>
+      <p class="test-desc">
+        <del>入站信号好???????????????????</del>（这是哪只黑客写的（恼<br />
+        出站信号好！这里是 MrZhang365，一位 <del>刚满十八岁～ 的</del> 编程爱好者兼火车迷，偶尔搞一些奇怪的项目（比如这个），时不时全国乱跑探访机位，学老裴站在车窗处看火车迷<br />
+        B站：<a href="https://space.bilibili.com/3493087114430866" target="_blank">@MrZhang365</a><br />
+        抖音：<a href="https://www.douyin.com/user/MS4wLjABAAAAPWot5UtE2Hlh2hCaggw1zWiDIX3XFdFv02oucTzfA1jOYr-g7gc3h5U0Y4U8Jqlz" target="_blank">MrZhang365</a><br />
+        微信视频号：<a>@MrZhang365</a>
+      </p>
     </div>
   </div>
 </template>
