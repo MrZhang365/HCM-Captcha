@@ -40,7 +40,8 @@ function handleSubmit(payload: CaptchaSubmitEvent) {
     <h1 class="test-title">这是什么？</h1>
     <p class="test-desc">
       这是一个专为火车迷打造的人机验证组件（CAPTCHA），由 <a href="https://blog.zhangsoft.top/" target="_blank">MrZhang365</a> 在 TRAE AI 的协助下开发。
-      项目纯属娱乐，理论上说不具备实用价值
+      项目纯属娱乐，理论上说不具备实用价值 <br />
+      你说什么？你想看源码？<a href="https://github.com/MrZhang365/hcm-captcha">如你所愿</a> 不要忘记给我star！
     </p>
 
     <div class="test-section">
