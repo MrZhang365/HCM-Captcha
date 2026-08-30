@@ -33,7 +33,7 @@ function getRandomInt(min: number, max: number): number {
 export async function getQuestion(): Promise<SelectedQuestion> {
     const imgId = getRandomInt(MIN_IMG, MAX_IMG)
 
-    const meta = await (await fetch(`/metas/${imgId}.json`)).json() as Record<string, number[]>
+    const meta = await (await fetch(`metas/${imgId}.json`)).json() as Record<string, number[]>
     const tag = Object.keys(meta)[getRandomInt(0, Object.keys(meta).length - 1)]!
     const question = QUESTIONS.find(q => q.tag === tag)!
 

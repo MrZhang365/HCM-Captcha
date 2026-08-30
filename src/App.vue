@@ -11,7 +11,7 @@ const debugMode = ref<boolean>(!!import.meta.env.VITE_DEBUG_MODE)
 
 async function handleStart() {
   const selected = await getQuestion()
-  const imageUrl = `${location.protocol}//${location.host}/images/${selected.imgId}.jpg`
+  const imageUrl = `images/${selected.imgId}.jpg`
   captchaRef.value?.openChallenge({ question: selected.text, imageUrl, answer: selected.answer })
 }
 
@@ -41,7 +41,7 @@ function handleSubmit(payload: CaptchaSubmitEvent) {
     <p class="test-desc">
       这是一个专为火车迷打造的人机验证组件（CAPTCHA），由 <a href="https://blog.zhangsoft.top/" target="_blank">MrZhang365</a> 在 TRAE AI 的协助下开发。
       项目纯属娱乐，理论上说不具备实用价值 <br />
-      你说什么？你想看源码？<a href="https://github.com/MrZhang365/hcm-captcha">如你所愿</a> 不要忘记给我star！
+      你说什么？你想看源码？<a target="_blank" href="https://github.com/MrZhang365/hcm-captcha">如你所愿</a> 不要忘记给我star！
     </p>
 
     <div class="test-section">
